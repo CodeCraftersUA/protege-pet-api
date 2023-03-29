@@ -1,3 +1,4 @@
+// Error class
 import AppError from "../errors/AppError.js";
 
 const handleAppErrors = (err, request, response, next) => {

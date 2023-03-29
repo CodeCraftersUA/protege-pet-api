@@ -1,3 +1,4 @@
+// Error class
 import AppError from "../../errors/AppError.js";
 
 export const validate = schema => async (req, res, next) => {
