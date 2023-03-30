@@ -1,19 +1,26 @@
 // Dependencies
 import express from "express";
-import { createRequire } from "module";
 
 const app = express();
 
-// Validations
+// Controllers
+import { fetchProtectors, fetchProtector } from "../controllers/protector.js";
+
+// Middlewares
 import { postValidate } from "../middlewares/validations/protector.js";
 
-// Mock
-const require = createRequire(import.meta.url);
-const protectorsMock = require("../mock/protectors.json");
 
+app.get("", async (req, res) => {
+  const protectors = await fetchProtectors();
 
-app.get("", (req, res) => {
-  res.json(protectorsMock);
+  res.status(200).json(protectors);
+});
+
+app.get("/:id", async (req, res) => {
+  const protectorId = req.params.id;
+  const protector = await fetchProtector(protectorId);
+
+  res.status(200).json(protector);
 });
 
 app.patch("", (req, res) => {

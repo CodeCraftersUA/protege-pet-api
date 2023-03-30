@@ -1,5 +1,29 @@
 [{
-  "id": 1,
-  "name": "Protetor Paulo",
-  "imageSrc": ""
-}]
+    "id": 1,
+    "name": "Pet Vida",
+    "image_src": ""
+  },
+  {
+
+    "id": 2,
+    "name": "Dogs+",
+    "image_src": ""
+  },
+  {
+
+    "id": 3,
+    "name": "Clinica Joana + Souza - Dogs&Cats",
+    "image_src": ""
+  },
+  {
+
+    "id": 4,
+    "name": "Patinhas Solidárias - Centro 1024",
+    "image_src": ""
+  },
+  {
+    "id": 5,
+    "name": "Sociedade Indepentende Amigos dos Animais",
+    "image_src": ""
+  }
+]
