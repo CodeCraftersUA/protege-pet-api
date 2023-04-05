@@ -11,7 +11,12 @@ import * as authServices from "../services/auth.js";
 dotenv.config(); // Config dotenv
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const generateUserToken = async ({ email, password } = {}) => {
+interface LoginCredentials {
+  email: String,
+  password: String
+}
+
+const generateUserToken = async ({ email, password }: LoginCredentials = { email: "", password: "" }) => {
   // Verify if user exists
   const user = await authServices.fetchUserByEmailAndPassword(email, password);
 

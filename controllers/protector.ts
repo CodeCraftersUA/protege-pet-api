@@ -6,8 +6,8 @@ const fetchProtectors = async () => {
   return protectors;
 }
 
-const fetchProtector = async id => {
-  const protector = await protectorServices.fetchProtector(Number(id));
+const fetchProtector = async (id: number) => {
+  const protector = await protectorServices.fetchProtector(id);
   return protector;
 }
 

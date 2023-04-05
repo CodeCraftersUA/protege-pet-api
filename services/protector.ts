@@ -5,15 +5,22 @@ import AppError from "../errors/AppError.js";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
+// Types
+import { User } from "../models/user.js";
+
+
 // Returns all protectors
-const fetchProtectors = async () => {
-  const protectorsMock = require("../mock/protectors.json");
+const fetchProtectors = async (): Promise<Array<User>> => {
+  const usersMock: Array<User> = require("../mock/users.json");
+  const protectorsMock = usersMock.filter(user => user.type === "PROTECTOR");
   return protectorsMock;
 }
 
 // Returns protector by ID
-const fetchProtector = async id => {
-  const protectorsMock = require("../mock/protectors.json");
+const fetchProtector = async (
+  id: number
+) => {
+  const protectorsMock: Array<User> = require("../mock/users.json");
   const protectorMock = protectorsMock.find(protector => protector.id === id);
 
   if (protectorMock) {

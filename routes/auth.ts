@@ -1,5 +1,5 @@
 // Dependencies
-import express from "express";
+import express, { Response, Request } from "express";
 const app = express();
 
 // Controllers
@@ -9,7 +9,10 @@ import { generateUserToken } from "../controllers/auth.js";
 import { loginValidate } from "../middlewares/validations/auth.js";
 
 
-app.post("/login", loginValidate, async (req, res) => {
+app.post("/login", loginValidate, async (
+  req: Request,
+  res: Response
+) => {
   const { email, password } = req.body;
 
   const token = await generateUserToken({ email, password });

@@ -1,7 +1,15 @@
+// Dependencies
+import { NextFunction, Request, Response } from "express";
+import { Schema } from "yup";
+
 // Error class
 import AppError from "../../errors/AppError.js";
 
-export const validate = schema => async (req, res, next) => {
+export const validate = (schema: Schema) => async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     await schema.validate({
       body: req.body,
