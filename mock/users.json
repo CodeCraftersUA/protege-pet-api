@@ -1,0 +1,44 @@
+[{
+    "id": 1,
+    "name": "Pet Vida",
+    "image_src": "",
+    "type": "PROTECTOR",
+    "email": "contato@petvida.com",
+    "password": "petvida123"
+  },
+  {
+
+    "id": 2,
+    "name": "Dogs+",
+    "image_src": "",
+    "type": "PROTECTOR",
+    "email": "contato@godsplus.com.br",
+    "password": "dogs+123"
+  },
+  {
+
+    "id": 3,
+    "name": "Clinica Joana + Souza - Dogs&Cats",
+    "image_src": "",
+    "type": "PROTECTOR",
+    "email": "joana.braga@yahoo.com",
+    "password": "clinicajoana123"
+  },
+  {
+
+    "id": 4,
+    "name": "Patinhas Solidárias - Centro 1024",
+    "image_src": "",
+    "type": "PROTECTOR",
+    "email": "patinhas.solidarias23@gmail.com",
+    "password": "patinhassolidarias123"
+  },
+  {
+    "id": 5,
+    "name": "Sociedade Indepentende Amigos dos Animais",
+    "image_src": "",
+    "type": "PROTECTOR",
+    "email": "sociedadeindependenteamigosdosanimais@hotmail.com.br",
+    "password": "sociedadeindependente123"
+  }
+]
