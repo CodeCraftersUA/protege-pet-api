@@ -18,7 +18,7 @@ app.get("", async (req, res) => {
 
 app.get("/:id", async (req, res) => {
   const protectorId = req.params.id;
-  const protector = await fetchProtector(protectorId);
+  const protector = await fetchProtector(Number(protectorId));
 
   res.status(200).json(protector);
 });
