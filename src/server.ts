@@ -4,8 +4,7 @@ import dotenv from "dotenv";
 import "express-async-errors";
 
 // Routes
-import protectorRoutes from "./routes/protector.js";
-import authRoutes from "./routes/auth.js";
+import accountRoutes from "./routes/accountRoutes.js";
 
 // Middlewares
 import { handleAppErrors } from "./middlewares/handleAppErrors.js";
@@ -18,8 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use routes
-app.use("/auth", authRoutes);
-app.use("/protectors", protectorRoutes);
+app.use("/account", accountRoutes);
 
 // Default middlewares
 app.use(handleAppErrors);

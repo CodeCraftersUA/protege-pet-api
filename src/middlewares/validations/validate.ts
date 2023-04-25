@@ -5,7 +5,7 @@ import { Schema } from "yup";
 // Error class
 import AppError from "../../errors/AppError.js";
 
-export const validate = (schema: Schema) => async (
+const validate = (schema: Schema) => async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -26,3 +26,5 @@ export const validate = (schema: Schema) => async (
     }
   }
 };
+
+export default validate;
