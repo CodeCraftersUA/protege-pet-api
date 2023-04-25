@@ -7,21 +7,24 @@ import AppError from '../../../../errors/AppError.js';
 // Interfaces
 import { LoginCredentials } from "../../../../models/account.js";
 
+// Utils
+import Crypto from '../../../../utils/Crypto.js';
+
 const prisma = new PrismaClient();
+const crypto = new Crypto();
 
 class AuthenticateUserUseCase {
   execute = async ({ email, password }: LoginCredentials) => {
     const account = await prisma.account.findFirst({
-      where: {
-        email,
-        password
-      }
+      where: { email }
     });
 
-    if (account) return account;
+    if (account) {
+      const isPasswordValid = await crypto.compare(password, account.password);
+      if (isPasswordValid) return account;
+    }
 
     throw new AppError(`E-mail or password invalid`, 401);
-    // In case account does not exists, returns 401
   }
 }
 

@@ -12,6 +12,7 @@ import AuthenticateUserUseCase from "./AuthenticateUserUseCase.js";
 dotenv.config(); // Config dotenv
 const SECRET_KEY = process.env.SECRET_KEY;
 
+const authenticateUserUseCase = new AuthenticateUserUseCase();
 
 class AuthenticateUserController {
   handler = async (
@@ -21,7 +22,6 @@ class AuthenticateUserController {
 
     const { email, password } = req.body;
 
-    const authenticateUserUseCase = new AuthenticateUserUseCase();
 
     // Verify if user exists
     const account = await authenticateUserUseCase.execute({ email, password });
@@ -37,7 +37,10 @@ class AuthenticateUserController {
     if (!SECRET_KEY) throw new AppError("Secret key missing", 500);
     const token = jwt.sign(tokenData, SECRET_KEY, { expiresIn: '720h' });
 
-    res.status(200).json({ token: `bearer ${token}` });
+    res.status(200).json({
+      token: `bearer ${token}`,
+      expiresIn: 2592000000,
+    });
   }
 }
 
