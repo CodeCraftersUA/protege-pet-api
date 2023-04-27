@@ -5,6 +5,7 @@ import "express-async-errors";
 
 // Routes
 import accountRoutes from "./routes/accountRoutes.js";
+import animalRoutes from "./routes/animalRoutes.js";
 
 // Middlewares
 import { handleAppErrors } from "./middlewares/handleAppErrors.js";
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use routes
 app.use("/account", accountRoutes);
+app.use("/animal", animalRoutes);
 
 // Default middlewares
 app.use(handleAppErrors);

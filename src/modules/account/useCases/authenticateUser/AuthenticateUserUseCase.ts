@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 // Errors
 import AppError from '../../../../errors/AppError.js';
 
-// Interfaces
+// Models
 import { LoginCredentials } from "../../../../models/account.js";
 
 // Utils

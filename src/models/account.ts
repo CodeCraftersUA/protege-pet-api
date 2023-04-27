@@ -1,5 +1,5 @@
 export default interface Account {
-  id: number,
+  id: string,
   name: string,
   type: UserType,
   email: string,
@@ -15,4 +15,13 @@ export interface LoginCredentials {
 export enum UserType {
   PROTECTOR = "PROTECTOR",
   ADMIN = "ADMIN"
+}
+
+export interface AuthToken {
+  id: string,
+  name: string,
+  email: string,
+  type: UserType,
+  iat: number,
+  exp: number
 }

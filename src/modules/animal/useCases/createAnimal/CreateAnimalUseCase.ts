@@ -3,27 +3,36 @@ import { PrismaClient } from '@prisma/client';
 
 // Errors
 import AppError from '../../../../errors/AppError.js';
-import { KEY_ALREADY_EXISTS } from '../../../../errors/prismaErrorsCodes.js'
+import { KEY_ALREADY_EXISTS } from '../../../../errors/prismaErrorsCodes.js';
 
 // Helpers
 import generateUniqueId from '../../../../helpers/generateUniqueId.js';
 
 // Models
-import Account from '../../../../models/account.js';
+import Animal from '../../../../models/animal.js';
 
 
 const prisma = new PrismaClient();
 
 class CreateAccountUseCase {
-  execute = async (account: Account) => {
+  execute = async (animal: Animal): Promise<void> => {
     try {
-      await prisma.account.create({
+      const animalSickness = animal.sickness.map(sickness => ({ sicknessId: sickness.id }));
+
+      await prisma.animal.create({
         data: {
-          ...account,
           id: generateUniqueId(),
+          name: animal.name,
+          specie: animal.specie,
+          gender: animal.gender,
+          owner: animal.owner,
+          sickness: {
+            create: animalSickness
+          }
         }
       });
     } catch (err) {
+      console.error(err)
       if (err.code === KEY_ALREADY_EXISTS)
         throw new AppError(`Attribute ${err.meta.target} already exists`, 400);
 

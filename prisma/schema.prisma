@@ -10,16 +10,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model account {
+model Account {
   id       String      @id @db.VarChar(36)
   email    String      @unique @db.VarChar(125)
   password String      @db.VarChar(255)
   name     String      @unique @db.VarChar(55)
-  type     accountType
+  type     AccountType
   cnpj     String?     @unique @db.VarChar(14)
+  Animal   Animal[]
 }
 
-enum accountType {
+enum AccountType {
   ADMIN
   PROTECTOR
+}
+
+model Animal {
+  id       String              @id @db.VarChar(36)
+  name     String              @db.VarChar(55)
+  specie   AnimalSpecie
+  gender   AnimalGender
+  sickness AnimalsOnSickness[]
+  owner    String              @db.VarChar(36)
+  account  Account             @relation(fields: [owner], references: [id])
+}
+
+model Sickness {
+  id      String              @id @db.VarChar(36)
+  name    String              @db.VarChar(55)
+  specie  AnimalSpecie[]
+  animals AnimalsOnSickness[]
+}
+
+enum AnimalSpecie {
+  CAT
+  DOG
+}
+
+enum AnimalGender {
+  MALE
+  FEMALE
+}
+
+model AnimalsOnSickness {
+  animal     Animal   @relation(fields: [animalId], references: [id])
+  animalId   String   @map("animal_id")
+  sickness   Sickness @relation(fields: [sicknessId], references: [id])
+  sicknessId String   @map("sickness_id")
+  addedAt    DateTime @default(now()) @map("added_at")
+
+  @@id([animalId, sicknessId])
 }
