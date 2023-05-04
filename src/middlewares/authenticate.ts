@@ -7,7 +7,11 @@ import dotenv from "dotenv";
 import AppError from "../errors/AppError.js";
 
 // Models
-import { UserType, AuthToken } from "../models/account.js";
+import { UserType } from "../models/account.js";
+import { AuthToken, RequestWithAuth } from "../models/request.js";
+
+// Use cases
+import CheckIfAccountExistsUseCase from "../modules/account/useCases/authenticateUser/CheckIfAccountExistsUseCase.js";
 
 dotenv.config(); // Config dotenv
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -16,25 +20,33 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const invalidTokenError = new AppError("Invalid auth token", 403);
 const tokenValidationError = new AppError("Could not validate token due to internal error", 500);
 
+const checkIfAccountExistsUseCase = new CheckIfAccountExistsUseCase();
+
 class Authenticate {
   private allowedUserTypes: UserType[] = [];
 
-  validateToken = (token: string): AuthToken => {
+  validateToken = async (token: string): Promise<AuthToken> => {
     if (!SECRET_KEY)
       throw tokenValidationError;
 
     try {
-      return <AuthToken>(jwt.verify(token, SECRET_KEY));
+      const decodedToken = <AuthToken>(jwt.verify(token, SECRET_KEY));
+      const accountExists = await checkIfAccountExistsUseCase.execute(decodedToken.id);
+
+      if (accountExists)
+        return decodedToken;
+
+      throw invalidTokenError;
     } catch (err) {
       throw invalidTokenError;
     }
   }
 
-  execute = (
-    req: Request,
+  execute = async (
+    req: RequestWithAuth,
     res: Response,
     next: NextFunction
-  ): void => {
+  ): Promise<void> => {
     const { authorization } = req.headers;
 
     if (!authorization)
@@ -43,11 +55,13 @@ class Authenticate {
     if (typeof authorization !== "string")
       throw invalidTokenError;
 
-    const decodedToken = this.validateToken(authorization);
+    const decodedToken = await this.validateToken(authorization);
 
     // Validates if user type is allowed
     if (this.allowedUserTypes.length && !this.allowedUserTypes.includes(decodedToken.type))
       throw new AppError("User has no access to this resource", 403);
+
+    req.auth = decodedToken;
 
     return next();
   }

@@ -15,7 +15,7 @@ import Animal from '../../../../models/animal.js';
 const prisma = new PrismaClient();
 
 class CreateAccountUseCase {
-  execute = async (animal: Animal): Promise<void> => {
+  execute = async ({ animal, accountId }: { animal: Animal, accountId: string }): Promise<void> => {
     try {
       const animalSickness = animal.sickness.map(sickness => ({ sicknessId: sickness.id }));
 
@@ -25,7 +25,7 @@ class CreateAccountUseCase {
           name: animal.name,
           specie: animal.specie,
           gender: animal.gender,
-          owner: animal.owner,
+          owner: accountId,
           sickness: {
             create: animalSickness
           }

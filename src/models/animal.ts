@@ -4,7 +4,11 @@ export default interface Animal {
   specie: AnimalSpecie,
   gender: AnimalGender,
   sickness: Sickness[],
-  owner: string
+  owner?: string,
+  account?: {
+    id: string,
+    name: string
+  }
 }
 
 export enum AnimalSpecie {

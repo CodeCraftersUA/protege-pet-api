@@ -4,7 +4,8 @@ export default interface Account {
   type: UserType,
   email: string,
   password: string,
-  cnpj: string
+  cnpj: string,
+  active?: boolean
 }
 
 export interface LoginCredentials {
@@ -15,13 +16,4 @@ export interface LoginCredentials {
 export enum UserType {
   PROTECTOR = "PROTECTOR",
   ADMIN = "ADMIN"
-}
-
-export interface AuthToken {
-  id: string,
-  name: string,
-  email: string,
-  type: UserType,
-  iat: number,
-  exp: number
 }

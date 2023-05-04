@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use routes
 app.use("/account", accountRoutes);
-app.use("/animal", animalRoutes);
+app.use("/animals", animalRoutes);
 
 // Default middlewares
 app.use(handleAppErrors);

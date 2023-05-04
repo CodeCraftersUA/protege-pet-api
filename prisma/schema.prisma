@@ -16,8 +16,9 @@ model Account {
   password String      @db.VarChar(255)
   name     String      @unique @db.VarChar(55)
   type     AccountType
+  active   Boolean     @default(true) @ignore
   cnpj     String?     @unique @db.VarChar(14)
-  Animal   Animal[]
+  animals  Animal[]
 }
 
 enum AccountType {
@@ -31,14 +32,15 @@ model Animal {
   specie   AnimalSpecie
   gender   AnimalGender
   sickness AnimalsOnSickness[]
-  owner    String              @db.VarChar(36)
+  active   Boolean             @default(true) @ignore
+  owner    String              @map("owner_id") @db.VarChar(36)
   account  Account             @relation(fields: [owner], references: [id])
 }
 
 model Sickness {
   id      String              @id @db.VarChar(36)
   name    String              @db.VarChar(55)
-  specie  AnimalSpecie[]
+  species AnimalSpecie[]
   animals AnimalsOnSickness[]
 }
 
