@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { Schema } from "yup";
 
 // Error class
-import AppError from "../../errors/AppError.js";
+import AppError from "../../errors/AppError.ts";
 
 const validate = (schema: Schema) => async (
   req: Request,

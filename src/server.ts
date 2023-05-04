@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 import "express-async-errors";
 
 // Routes
-import accountRoutes from "./routes/accountRoutes.js";
-import animalRoutes from "./routes/animalRoutes.js";
+import accountRoutes from "./routes/accountRoutes.ts";
+import animalRoutes from "./routes/animalRoutes.ts";
 
 // Middlewares
-import { handleAppErrors } from "./middlewares/handleAppErrors.js";
+import { handleAppErrors } from "./middlewares/handleAppErrors.ts";
 
 dotenv.config(); // Config dotenv
 const PORT = process.env.PORT || 3000; // API listen port

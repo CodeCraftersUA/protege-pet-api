@@ -2,10 +2,10 @@
 import yup from "yup";
 
 // Models
-import { UserType } from "../../../models/account.js";
+import { UserType } from "../../../models/account.ts";
 
 // Validate
-import validate from "../validate.js";
+import validate from "../validate.ts";
 
 
 const yupPasswordValidation = yup.string().min(8).max(255).matches(/^(?=.*[A-Za-z])(?=.*\d).+$/, "account.invalid_password").required()

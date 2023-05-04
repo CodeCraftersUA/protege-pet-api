@@ -2,10 +2,10 @@
 import yup from "yup";
 
 // Models
-import { AnimalGender, AnimalSpecie } from "../../../models/animal.js";
+import { AnimalGender, AnimalSpecie } from "../../../models/animal.ts";
 
 // Validate
-import validate from "../validate.js";
+import validate from "../validate.ts";
 
 
 const createAnimalValidateSchema = yup.object({

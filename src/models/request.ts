@@ -2,7 +2,7 @@
 import { Request } from "express";
 
 // Interface
-import { UserType } from "./account.js";
+import { UserType } from "./account.ts";
 
 
 export interface RequestWithAuth extends Request {

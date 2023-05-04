@@ -4,14 +4,14 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 // Error
-import AppError from "../errors/AppError.js";
+import AppError from "../errors/AppError.ts";
 
 // Models
-import { UserType } from "../models/account.js";
-import { AuthToken, RequestWithAuth } from "../models/request.js";
+import { UserType } from "../models/account.ts";
+import { AuthToken, RequestWithAuth } from "../models/request.ts";
 
 // Use cases
-import CheckIfAccountExistsUseCase from "../modules/account/useCases/authenticateUser/CheckIfAccountExistsUseCase.js";
+import CheckIfAccountExistsUseCase from "../modules/account/useCases/authenticateUser/CheckIfAccountExistsUseCase.ts";
 
 dotenv.config(); // Config dotenv
 const SECRET_KEY = process.env.SECRET_KEY;

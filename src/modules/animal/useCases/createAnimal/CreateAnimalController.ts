@@ -1,10 +1,10 @@
 // Dependencies
 import { Response } from "express";
-import { RequestWithAuth } from "../../../../models/request.js";
+import { RequestWithAuth } from "../../../../models/request.ts";
 
 // UseCases
-import CreateAnimalUseCase from "./CreateAnimalUseCase.js";
-import AppError from "../../../../errors/AppError.js";
+import CreateAnimalUseCase from "./CreateAnimalUseCase.ts";
+import AppError from "../../../../errors/AppError.ts";
 
 
 const createAnimalUseCase = new CreateAnimalUseCase();

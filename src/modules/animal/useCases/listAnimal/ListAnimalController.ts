@@ -2,7 +2,7 @@
 import { Response, Request } from "express";
 
 // UseCases
-import ListAnimalUseCase from "./ListAnimalUseCase.js";
+import ListAnimalUseCase from "./ListAnimalUseCase.ts";
 
 
 const listAnimalUseCase = new ListAnimalUseCase();

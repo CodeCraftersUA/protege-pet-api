@@ -2,13 +2,13 @@
 import { PrismaClient } from '@prisma/client';
 
 // Errors
-import AppError from '../../../../errors/AppError.js';
+import AppError from '../../../../errors/AppError.ts';
 
 // Models
-import { LoginCredentials } from "../../../../models/account.js";
+import { LoginCredentials } from "../../../../models/account.ts";
 
 // Utils
-import Crypto from '../../../../utils/Crypto.js';
+import Crypto from '../../../../utils/Crypto.ts';
 
 const prisma = new PrismaClient();
 const crypto = new Crypto();

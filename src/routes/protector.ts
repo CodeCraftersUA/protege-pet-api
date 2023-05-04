@@ -4,10 +4,10 @@ import express from "express";
 const app = express();
 
 // Controllers
-import { fetchProtectors, fetchProtector } from "../controllers/protector.js";
+import { fetchProtectors, fetchProtector } from "../controllers/protector.ts";
 
 // Middlewares
-import { postValidate } from "../middlewares/validations/protector.js";
+import { postValidate } from "../middlewares/validations/protector.ts";
 
 
 app.get("", async (req, res) => {

@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 // Errors
-import AppError from "../../../../errors/AppError.js";
+import AppError from "../../../../errors/AppError.ts";
 
 // UseCases
-import AuthenticateUserUseCase from "./AuthenticateUserUseCase.js";
+import AuthenticateUserUseCase from "./AuthenticateUserUseCase.ts";
 
 dotenv.config(); // Config dotenv
 const SECRET_KEY = process.env.SECRET_KEY;

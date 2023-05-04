@@ -2,7 +2,7 @@
 import bcrypt from "bcrypt";
 
 // Error
-import AppError from "../errors/AppError.js";
+import AppError from "../errors/AppError.ts";
 
 const SECRET_KEY = "123"
 

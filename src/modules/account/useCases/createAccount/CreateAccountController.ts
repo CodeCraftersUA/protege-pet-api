@@ -2,10 +2,10 @@
 import { Request, Response } from "express";
 
 // UseCases
-import CreateAccountUseCase from "./CreateAccountUseCase.js";
+import CreateAccountUseCase from "./CreateAccountUseCase.ts";
 
 // Utils
-import Crypto from "../../../../utils/Crypto.js";
+import Crypto from "../../../../utils/Crypto.ts";
 
 const crypto = new Crypto();
 const createAccountUseCase = new CreateAccountUseCase();

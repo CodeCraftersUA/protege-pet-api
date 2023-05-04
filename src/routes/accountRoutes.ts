@@ -2,11 +2,11 @@
 import express from "express";
 
 // Controllers
-import AuthenticateUserController from "../modules/account/useCases/authenticateUser/AuthenticateUserController.js";
-import CreateAccountController from "../modules/account/useCases/createAccount/CreateAccountController.js";
+import AuthenticateUserController from "../modules/account/useCases/authenticateUser/AuthenticateUserController.ts";
+import CreateAccountController from "../modules/account/useCases/createAccount/CreateAccountController.ts";
 
 // Middlewares
-import { loginValidate, createAccountValidate } from "../middlewares/validations/account/account.js";
+import { loginValidate, createAccountValidate } from "../middlewares/validations/account/account.ts";
 
 const app = express();
 
