@@ -16,8 +16,11 @@ class Admin {
 
 	login = async (): Promise<void> => {
 		const response = await request(SERVER_LINK)
-			.post("/account/login")
-			.send({ email: this.email, password: this.password });
+			.post("http://localhost:3000")
+			.send({ email: this.email, password: this.password })
+			.expect(200);
+
+			console.log(response)
 
 		this.token = response.body.token;
 	}
