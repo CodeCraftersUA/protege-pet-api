@@ -16,7 +16,8 @@ model Account {
   password String      @db.VarChar(255)
   name     String      @unique @db.VarChar(55)
   type     AccountType
-  active   Boolean     @default(true) @ignore
+  active   Boolean     @default(true)
+  approved Boolean     @default(false)
   cnpj     String?     @unique @db.VarChar(14)
   animals  Animal[]
 }
@@ -32,7 +33,7 @@ model Animal {
   specie   AnimalSpecie
   gender   AnimalGender
   sickness AnimalsOnSickness[]
-  active   Boolean             @default(true) @ignore
+  active   Boolean             @default(true)
   owner    String              @map("owner_id") @db.VarChar(36)
   account  Account             @relation(fields: [owner], references: [id])
 }

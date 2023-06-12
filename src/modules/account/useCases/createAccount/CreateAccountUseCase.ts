@@ -14,12 +14,18 @@ import Account from '../../../../models/account.js';
 
 const prisma = new PrismaClient();
 
+const defaultApprovedByType = {
+  "PROTECTOR": false,
+  "ADMIN": true
+}
+
 class CreateAccountUseCase {
   execute = async (account: Account) => {
     try {
       await prisma.account.create({
         data: {
           ...account,
+          approved: defaultApprovedByType[account.type],
           id: generateUniqueId(),
         }
       });
