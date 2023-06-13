@@ -11,7 +11,7 @@ import Animal from '../../../../models/animal.js';
 const prisma = new PrismaClient();
 
 class ListAnimalsUserCase {
-	listAnimals = async (): Promise<any> => {
+	private listAnimals = async (): Promise<any> => {
 		const animals = await prisma.animal.findMany({
 			select: {
 				id: true,

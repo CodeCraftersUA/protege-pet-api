@@ -9,7 +9,7 @@ import { KEY_ALREADY_EXISTS } from '../../../../errors/prismaErrorsCodes.js'
 import generateUniqueId from '../../../../helpers/generateUniqueId.js';
 
 // Models
-import Account from '../../../../models/account.js';
+import { NewAccount } from '../../../../models/account.js';
 
 
 const prisma = new PrismaClient();
@@ -20,7 +20,7 @@ const defaultApprovedByType = {
 }
 
 class CreateAccountUseCase {
-  execute = async (account: Account) => {
+  execute = async (account: NewAccount) => {
     try {
       await prisma.account.create({
         data: {

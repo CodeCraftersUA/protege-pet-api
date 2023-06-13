@@ -17,10 +17,10 @@ class AnimalDTO {
 	}
 
 	constructor(animals: Animal | Animal[]) {
-		if (typeof animals !== "string")
-			this.animals = [animals];
-		else
+		if (Array.isArray(animals))
 			this.animals = animals
+		else
+			this.animals = [animals];
 	}
 }
 
