@@ -69,7 +69,7 @@ class Authenticate {
       const isApproved = await checkIfAccountIsApproved.execute(decodedToken.id);
 
       if (!isApproved)
-        throw new AppError("User has no access to this resource yet", 403)
+        throw new AppError("User has no access to this resource", 403)
     }
 
     req.auth = decodedToken;

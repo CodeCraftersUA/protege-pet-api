@@ -1,9 +1,12 @@
+import { Prisma } from "@prisma/client"
+
 export interface Account {
   id: string,
   name: string,
   email: string,
   cnpj: string | null,
   type: UserType,
+  _count?: Prisma.AccountCountOutputType
 }
 
 export interface NewAccount {
