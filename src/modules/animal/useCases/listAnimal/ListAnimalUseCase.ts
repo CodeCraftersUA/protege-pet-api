@@ -1,49 +1,78 @@
 // Dependencies
 import { PrismaClient } from '@prisma/client';
 
-// Errors
-import AppError from '../../../../errors/AppError.js';
-
 // Models
 import Animal from '../../../../models/animal.js';
 
 
 const prisma = new PrismaClient();
 
+interface params {
+  quantity: number,
+  offset: number
+}
+interface ReturnType {
+  options: {
+    total: number,
+    offset: number,
+    quatity: number,
+    length: number
+  },
+  data: Animal[]
+}
 class ListAnimalsUserCase {
-	private listAnimals = async (): Promise<any> => {
-		const animals = await prisma.animal.findMany({
-			select: {
-				id: true,
-				gender: true,
-				specie: true,
-				name: true,
-				sickness: true,
-				owner: false,
-				account: {
-					select: {
-						id: true,
-						name: true
-					}
-				}
-			}
-		});
+  execute = async ({ quantity, offset }: params): Promise<ReturnType> => {
+    const queryResult = await prisma.$transaction([
+      prisma.animal.count({
+        where: {
+          active: true
+        }
+      }),
+      prisma.animal.findMany({
+        select: {
+          id: true,
+          gender: true,
+          specie: true,
+          name: true,
+          sickness: true,
+          owner: false,
+          account: {
+            select: {
+              id: true,
+              name: true
+            }
+          }
+        },
+        where: {
+          active: true,
+        },
+        take: quantity,
+        skip: offset
+      })
+    ]);
 
-
-		return animals.map(animal => ({
-			id: animal.id,
-			gender: animal.gender,
-			specie: animal.specie,
-			name: animal.name,
-			sickness: animal.sickness,
-			owner: { ...animal.account }
-		}))
-	}
-
-	execute = async (): Promise<any> => {
-		const animals = await this.listAnimals();
-		return animals;
-	}
+    return {
+      options: {
+        total: queryResult[0],
+        offset: offset,
+        quatity: quantity,
+        length: queryResult[1].length
+      },
+      data: queryResult[1].map(animal => ({
+        id: animal.id,
+        gender: animal.gender,
+        specie: animal.specie,
+        name: animal.name,
+        sickness: animal.sickness.map(sickness => ({
+          id: sickness.sicknessId
+        })),
+        account: {
+          id: animal.account.id,
+          name: animal.account.name
+        }
+      }))
+    }
+  }
 }
 
 export default ListAnimalsUserCase;

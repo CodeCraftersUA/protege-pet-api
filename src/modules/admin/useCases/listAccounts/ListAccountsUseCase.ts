@@ -25,7 +25,11 @@ interface ReturnType {
 class ListAccounts {
   execute = async ({ approved = undefined, quantity = 100, offset = 0 }: params): Promise<ReturnType> => {
     const queryResult = await prisma.$transaction([
-      prisma.account.count(),
+      prisma.account.count({
+        where: {
+          active: true
+        }
+      }),
       prisma.account.findMany({
         select: {
           id: true,
@@ -35,7 +39,8 @@ class ListAccounts {
           type: true,
         },
         where: {
-          approved: approved
+          approved: approved,
+          active: true
         },
         skip: offset,
         take: quantity
