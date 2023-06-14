@@ -9,6 +9,9 @@ export interface Account {
   _count?: Prisma.AccountCountOutputType
 }
 
+export interface AccountByAdmin extends Account {
+  approved: boolean
+}
 export interface NewAccount {
   id: string,
   name: string,

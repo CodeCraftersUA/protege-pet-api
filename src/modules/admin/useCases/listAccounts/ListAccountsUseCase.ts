@@ -2,7 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 
 // Types
-import { Account } from "../../../../models/account";
+import { AccountByAdmin } from "../../../../models/account";
 
 const prisma = new PrismaClient();
 
@@ -19,7 +19,7 @@ interface ReturnType {
     quatity: number,
     length: number
   },
-  data: Account[]
+  data: AccountByAdmin[]
 }
 
 class ListAccounts {
@@ -37,6 +37,7 @@ class ListAccounts {
           name: true,
           email: true,
           type: true,
+          approved: true
         },
         where: {
           approved: approved,
@@ -56,6 +57,7 @@ class ListAccounts {
       },
       data: queryResult[1].map(account => ({
         id: account.id,
+        approved: account.approved,
         cnpj: account.cnpj,
         name: account.name,
         email: account.email,
