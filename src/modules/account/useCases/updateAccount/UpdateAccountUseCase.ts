@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import AppError from "../../../../errors/AppError.js";
 
 // Types
-import { AccountByAdmin } from "../../../../models/account";
+import { Account, AccountByAdmin } from "../../../../models/account";
 
 const prisma = new PrismaClient();
 
@@ -15,10 +15,11 @@ interface params {
   cnpj?: string,
   name?: string,
   email?: string,
+  asAdmin?: boolean
 }
 
 class UpdateApprovedAccountUseCase {
-  execute = async ({ id, approved, cnpj, name, email }: params): Promise<AccountByAdmin> => {
+  execute = async ({ id, approved, cnpj, name, email, asAdmin = false }: params): Promise<AccountByAdmin | Account> => {
     try {
       const queryResult = await prisma.account.update({
         data: {
@@ -32,9 +33,15 @@ class UpdateApprovedAccountUseCase {
         }
       });
 
-      return {
+      return asAdmin ? {
         id: queryResult.id,
         approved: queryResult.approved,
+        cnpj: queryResult.cnpj,
+        name: queryResult.name,
+        email: queryResult.email,
+        type: queryResult.type
+      } : {
+        id: queryResult.id,
         cnpj: queryResult.cnpj,
         name: queryResult.name,
         email: queryResult.email,
@@ -42,7 +49,7 @@ class UpdateApprovedAccountUseCase {
       };
     } catch (err) {
       if (err?.code === "P2025")
-        throw new AppError(`Could not find id ${id}`, 404)
+        throw new AppError(`Could not find id ${id}`, 404);
 
       throw err;
     }
