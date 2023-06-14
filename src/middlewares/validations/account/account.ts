@@ -27,6 +27,14 @@ const createAccountValidateSchema = yup.object({
   })
 });
 
+const updateAccountValidateSchema = yup.object({
+  body: yup.object({
+    name: yup.string().min(5).max(55).notRequired(),
+    cnpj: yup.string().length(14).notRequired(),
+  })
+});
+
 
 export const loginValidate = validate(loginValidateSchema);
 export const createAccountValidate = validate(createAccountValidateSchema);
+export const updateAccountValidate = validate(updateAccountValidateSchema);
