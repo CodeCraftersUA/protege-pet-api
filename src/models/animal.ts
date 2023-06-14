@@ -11,18 +11,21 @@ export default interface Animal {
   }
 }
 
-export enum AnimalSpecie {
-  DOG = "DOG",
-  CAT = "CAT",
+export const AnimalSpecie: { [x: string]: 'DOG' | 'CAT' } = {
+  DOG: "DOG",
+  CAT: "CAT",
 }
 
-export enum AnimalGender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
+export const AnimalGender: { [x: string]: 'MALE' | 'FEMALE' } = {
+  MALE: "MALE",
+  FEMALE: "FEMALE",
 }
 
 export interface Sickness {
   id: string,
-  name: string,
+  name?: string,
   specie?: AnimalSpecie[]
 }
+
+export type AnimalSpecie = typeof AnimalSpecie[keyof typeof AnimalSpecie]
+export type AnimalGender = typeof AnimalGender[keyof typeof AnimalGender]

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import "express-async-errors";
 
 // Routes
+import adminRoutes from "./routes/adminRoutes.js";
 import accountRoutes from "./routes/accountRoutes.js";
 import animalRoutes from "./routes/animalRoutes.js";
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use routes
 app.use("/account", accountRoutes);
+app.use("/admin", adminRoutes);
 app.use("/animals", animalRoutes);
 
 // Default middlewares
