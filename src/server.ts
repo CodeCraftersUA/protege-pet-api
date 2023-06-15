@@ -7,6 +7,7 @@ import "express-async-errors";
 import adminRoutes from "./routes/adminRoutes.js";
 import accountRoutes from "./routes/accountRoutes.js";
 import animalRoutes from "./routes/animalRoutes.js";
+import transferenceRoutes from "./routes/transferenceRoutes.js";
 
 // Middlewares
 import { handleAppErrors } from "./middlewares/handleAppErrors.js";
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/account", accountRoutes);
 app.use("/admin", adminRoutes);
 app.use("/animals", animalRoutes);
+app.use("/transferences", transferenceRoutes);
 
 // Default middlewares
 app.use(handleAppErrors);

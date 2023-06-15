@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Account {
-  id                         String           @id @db.VarChar(36)
-  email                      String           @unique @db.VarChar(125)
-  password                   String           @db.VarChar(255)
-  name                       String           @unique @db.VarChar(55)
-  type                       AccountType
-  active                     Boolean          @default(true)
-  approved                   Boolean          @default(false)
-  cnpj                       String?          @unique @db.VarChar(14)
-  animals                    Animal[]
-  AnimalTransfersAsRequester AnimalTransfer[] @relation(name: "requester")
-  AnimalTransfersAsReceiver  AnimalTransfer[] @relation(name: "receiver")
+  id                             String               @id @db.VarChar(36)
+  email                          String               @unique @db.VarChar(125)
+  password                       String               @db.VarChar(255)
+  name                           String               @unique @db.VarChar(55)
+  type                           AccountType
+  active                         Boolean              @default(true)
+  approved                       Boolean              @default(false)
+  cnpj                           String?              @unique @db.VarChar(14)
+  animals                        Animal[]
+  AnimalTransferencesAsRequester AnimalTransference[] @relation(name: "requester")
+  AnimalTransferencesAsReceiver  AnimalTransference[] @relation(name: "receiver")
 }
 
 enum AccountType {
@@ -30,15 +30,15 @@ enum AccountType {
 }
 
 model Animal {
-  id             String              @id @db.VarChar(36)
-  name           String              @db.VarChar(55)
-  specie         AnimalSpecie
-  gender         AnimalGender
-  sickness       AnimalsOnSickness[]
-  active         Boolean             @default(true)
-  owner          String              @map("owner_id") @db.VarChar(36)
-  account        Account             @relation(fields: [owner], references: [id])
-  AnimalTransfer AnimalTransfer[]
+  id                  String               @id @db.VarChar(36)
+  name                String               @db.VarChar(55)
+  specie              AnimalSpecie
+  gender              AnimalGender
+  sickness            AnimalsOnSickness[]
+  active              Boolean              @default(true)
+  owner               String               @map("owner_id") @db.VarChar(36)
+  account             Account              @relation(fields: [owner], references: [id])
+  AnimalTransferences AnimalTransference[]
 }
 
 model Sickness {
@@ -68,18 +68,21 @@ model AnimalsOnSickness {
   @@id([animalId, sicknessId])
 }
 
-model AnimalTransfer {
-  id          String               @id @db.VarChar(36)
-  animal      Animal               @relation(fields: [animalId], references: [id])
-  animalId    String               @map("animal_id")
-  requester   Account              @relation(name: "requester", fields: [requesterId], references: [id])
-  requesterId String               @map("requester_id") @db.VarChar(36)
-  receiver    Account              @relation(name: "receiver", fields: [receiverId], references: [id])
-  receiverId  String               @map("receiver_id") @db.VarChar(36)
-  status      AnimalTransferStatus
+model AnimalTransference {
+  id          String                   @id @db.VarChar(36)
+  animal      Animal                   @relation(fields: [animalId], references: [id])
+  animalId    String                   @map("animal_id")
+  requester   Account                  @relation(name: "requester", fields: [requesterId], references: [id])
+  requesterId String                   @map("requester_id") @db.VarChar(36)
+  receiver    Account                  @relation(name: "receiver", fields: [receiverId], references: [id])
+  receiverId  String                   @map("receiver_id") @db.VarChar(36)
+  status      AnimalTransferenceStatus
+  addedAt     DateTime                 @default(now()) @map("added_at")
+
+  @@map("AnimalTransferences")
 }
 
-enum AnimalTransferStatus {
+enum AnimalTransferenceStatus {
   ACCEPTED
   CANCELED
   REFUSED
