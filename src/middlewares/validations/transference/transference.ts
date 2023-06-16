@@ -24,8 +24,17 @@ const requestTransferenceValidateSchema = yup.object({
 	body: yup.object({
 		animalId: yup.string().min(5).max(55).required().test(animalExists),
 		receiverId: yup.string().min(5).max(55).required().test(existsIsApprovedAndIsProtector),
-	})
+	}),
 });
 
+const listTransferenceValidateSchema = yup.object({
+	query: yup.object({
+		receiverId: yup.string().min(5).max(55).notRequired(),
+		requesterId: yup.string().min(5).max(55).notRequired(),
+		animalId: yup.string().min(5).max(55).notRequired(),
+	})
+})
 
+
+export const listTransferenceValidate = validate(listTransferenceValidateSchema);
 export const requestTransferenceValidate = validate(requestTransferenceValidateSchema);

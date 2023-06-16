@@ -6,6 +6,9 @@ import { RequestWithAuth } from "../../../../models/request.js";
 import CreateTransferenceUseCase from "./RequestTransferenceUseCase.js";
 import AppError from "../../../../errors/AppError.js";
 
+// Utils
+import { isAnimalFromProtector } from "../../../../utils/validations/isAnimalFromProtector.js";
+
 
 const createTransferenceUseCase = new CreateTransferenceUseCase();
 
@@ -15,6 +18,9 @@ class RequestTransferenceController {
 
     if (!req.auth) throw new AppError("Internal server error", 500);
     if (receiverId === req.auth.id) throw new AppError("Cannot to transfer an animal to yourself", 400);
+
+    if (!await isAnimalFromProtector({ animalId, accountId: req.auth.id }))
+      throw new AppError("Cannot transfer an animal you do not possess", 403);
 
     const newTransference = await createTransferenceUseCase.execute({
       animalId,
