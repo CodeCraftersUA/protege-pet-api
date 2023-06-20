@@ -57,7 +57,10 @@ class ListTransferenceUseCase {
           }
         },
         take: quantity,
-        skip: offset
+        skip: offset,
+        orderBy: {
+          addedAt: 'desc'
+        }
       })
     ]);
 

@@ -44,7 +44,10 @@ class ListAccounts {
           active: true
         },
         skip: offset,
-        take: quantity
+        take: quantity,
+        orderBy: {
+          addedAt: 'desc'
+        }
       })
     ]);
 
