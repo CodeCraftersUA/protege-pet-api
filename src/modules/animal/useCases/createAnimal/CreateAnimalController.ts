@@ -15,12 +15,12 @@ class CreateAnimalController {
 
     const animalData = req.body;
 
-    await createAnimalUseCase.execute({
+    const createdAnimal = await createAnimalUseCase.execute({
       animal: animalData,
       accountId: req.auth.id
     });
 
-    res.sendStatus(201);
+    res.status(201).json(createdAnimal);
   }
 }
 

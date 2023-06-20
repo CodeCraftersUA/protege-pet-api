@@ -24,7 +24,7 @@ export const AnimalGender: { [x: string]: 'MALE' | 'FEMALE' } = {
 
 export interface Sickness {
   id: string,
-  name?: string,
+  name: string,
   specie?: AnimalSpecie[]
 }
 

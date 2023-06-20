@@ -11,7 +11,7 @@ interface params {
   quantity: number,
   offset: number,
   gender?: AnimalGender,
-  specie?: AnimalSpecie ,
+  specie?: AnimalSpecie,
   accountId?: string
 }
 interface ReturnType {
@@ -37,7 +37,16 @@ class ListAnimalsUserCase {
           gender: true,
           specie: true,
           name: true,
-          sickness: true,
+          sickness: {
+            select: {
+              sickness: {
+                select: {
+                  id: true,
+                  name: true
+                }
+              }
+            }
+          },
           owner: false,
           addedAt: true,
           account: {
@@ -75,7 +84,8 @@ class ListAnimalsUserCase {
         name: animal.name,
         addedAt: animal.addedAt,
         sickness: animal.sickness.map(sickness => ({
-          id: sickness.sicknessId
+          id: sickness.sickness.id,
+          name: sickness.sickness.name
         })),
         account: {
           id: animal.account.id,
