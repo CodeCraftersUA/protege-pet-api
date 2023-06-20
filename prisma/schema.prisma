@@ -22,6 +22,7 @@ model Account {
   animals                        Animal[]
   AnimalTransferencesAsRequester AnimalTransference[] @relation(name: "requester")
   AnimalTransferencesAsReceiver  AnimalTransference[] @relation(name: "receiver")
+  addedAt                        DateTime             @default(now())
 }
 
 enum AccountType {
@@ -39,6 +40,7 @@ model Animal {
   owner               String               @map("owner_id") @db.VarChar(36)
   account             Account              @relation(fields: [owner], references: [id])
   AnimalTransferences AnimalTransference[]
+  addedAt             DateTime             @default(now())
 }
 
 model Sickness {
@@ -63,7 +65,7 @@ model AnimalsOnSickness {
   animalId   String   @map("animal_id")
   sickness   Sickness @relation(fields: [sicknessId], references: [id])
   sicknessId String   @map("sickness_id")
-  addedAt    DateTime @default(now()) @map("added_at")
+  addedAt    DateTime @default(now())
 
   @@id([animalId, sicknessId])
 }
@@ -77,7 +79,7 @@ model AnimalTransference {
   receiver    Account                  @relation(name: "receiver", fields: [receiverId], references: [id])
   receiverId  String                   @map("receiver_id") @db.VarChar(36)
   status      AnimalTransferenceStatus
-  addedAt     DateTime                 @default(now()) @map("added_at")
+  addedAt     DateTime                 @default(now())
 
   @@map("AnimalTransferences")
 }

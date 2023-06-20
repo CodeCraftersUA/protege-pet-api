@@ -5,6 +5,7 @@ export default interface Animal {
   gender: AnimalGender,
   sickness: Sickness[],
   owner?: string,
+  addedAt: Date,
   account?: {
     id: string,
     name: string
