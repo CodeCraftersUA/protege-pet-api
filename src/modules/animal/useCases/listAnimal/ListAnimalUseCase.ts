@@ -1,5 +1,5 @@
 // Dependencies
-import { PrismaClient } from '@prisma/client';
+import { AnimalGender, AnimalSpecie, PrismaClient } from '@prisma/client';
 
 // Models
 import Animal from '../../../../models/animal.js';
@@ -9,7 +9,10 @@ const prisma = new PrismaClient();
 
 interface params {
   quantity: number,
-  offset: number
+  offset: number,
+  gender?: AnimalGender,
+  specie?: AnimalSpecie,
+  accountId?: string
 }
 interface ReturnType {
   options: {
@@ -21,7 +24,7 @@ interface ReturnType {
   data: Animal[]
 }
 class ListAnimalsUserCase {
-  execute = async ({ quantity, offset }: params): Promise<ReturnType> => {
+  execute = async ({ quantity, offset, gender, specie, accountId }: params): Promise<ReturnType> => {
     const queryResult = await prisma.$transaction([
       prisma.animal.count({
         where: {
@@ -45,6 +48,9 @@ class ListAnimalsUserCase {
         },
         where: {
           active: true,
+          owner: accountId,
+          gender: gender,
+          specie: specie
         },
         take: quantity,
         skip: offset

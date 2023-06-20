@@ -6,7 +6,7 @@ import CreateAnimalController from "../modules/animal/useCases/createAnimal/Crea
 import ListAnimalController from "../modules/animal/useCases/listAnimal/ListAnimalController.js";
 
 // Middlewares
-import { createAnimalValidate } from "../middlewares/validations/animal/animal.js";
+import { createAnimalValidate, listAnimalValidate } from "../middlewares/validations/animal/animal.js";
 import Authenticate from "../middlewares/authenticate.js";
 
 // Models
@@ -20,6 +20,6 @@ const createAnimalController = new CreateAnimalController();
 const listAnimalController = new ListAnimalController();
 
 app.post("", authenticateProtector.execute, createAnimalValidate, createAnimalController.handler);
-app.get("", listAnimalController.handler);
+app.get("", listAnimalValidate, listAnimalController.handler);
 
 export default app;
