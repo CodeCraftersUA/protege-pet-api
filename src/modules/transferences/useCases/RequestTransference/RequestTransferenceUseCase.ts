@@ -23,7 +23,7 @@ class RequestTransferenceUseCase {
     });
 
     if (transferenceExistsAndIsWaitingApproval) {
-      throw new AppError("Animal cannot be transfered while another transfer is active", 400);
+      throw new AppError("Animal cannot be transfered while another transference is active", 400);
     }
 
     const queryResult = await prisma.animalTransference.create({
