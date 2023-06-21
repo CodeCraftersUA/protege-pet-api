@@ -27,6 +27,15 @@ const listAnimalValidateSchema = yup.object({
   })
 });
 
+const updateAnimalValidateSchema = yup.object({
+  body: yup.object({
+    name: yup.string().min(5).max(55).notRequired(),
+    specie: yup.string().oneOf([AnimalSpecie.CAT, AnimalSpecie.DOG]).notRequired(),
+    gender: yup.string().oneOf([AnimalGender.MALE, AnimalGender.FEMALE]).notRequired(),
+    description: yup.string().min(5).max(255).notRequired(),
+  })
+});
 
+export const updateAnimalValidate = validate(updateAnimalValidateSchema);
 export const listAnimalValidate = validate(listAnimalValidateSchema);
 export const createAnimalValidate = validate(createAnimalValidateSchema);
