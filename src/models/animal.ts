@@ -1,3 +1,5 @@
+import { Sickness } from "./sickness"
+
 export default interface Animal {
   id: string,
   name: string,
@@ -21,12 +23,6 @@ export const AnimalSpecie: { [x: string]: 'DOG' | 'CAT' } = {
 export const AnimalGender: { [x: string]: 'MALE' | 'FEMALE' } = {
   MALE: "MALE",
   FEMALE: "FEMALE",
-}
-
-export interface Sickness {
-  id: string,
-  name: string,
-  specie?: AnimalSpecie[]
 }
 
 export type AnimalSpecie = typeof AnimalSpecie[keyof typeof AnimalSpecie]

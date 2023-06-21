@@ -45,10 +45,18 @@ model Animal {
 }
 
 model Sickness {
-  id      String              @id @db.VarChar(36)
-  name    String              @db.VarChar(55)
-  species AnimalSpecie[]
+  id      String                   @id @db.VarChar(36)
+  name    String                   @unique @db.VarChar(55)
+  species SicknessOnAnimalSpecie[]
   animals AnimalsOnSickness[]
+}
+
+model SicknessOnAnimalSpecie {
+  sickness   Sickness     @relation(fields: [sicknessId], references: [id])
+  sicknessId String       @map("sickness_id")
+  specie     AnimalSpecie
+
+  @@id([sicknessId, specie])
 }
 
 enum AnimalSpecie {
