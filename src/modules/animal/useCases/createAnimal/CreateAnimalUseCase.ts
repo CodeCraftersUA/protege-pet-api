@@ -26,15 +26,17 @@ class CreateAccountUseCase {
           specie: animal.specie,
           gender: animal.gender,
           owner: accountId,
+          description: animal.description,
           sickness: {
             create: animalSickness
           }
         },
         select: {
           id: true,
+          name: true,
           gender: true,
           specie: true,
-          name: true,
+          description: true,
           sickness: {
             select: {
               sickness: {
@@ -62,6 +64,7 @@ class CreateAccountUseCase {
         specie: queryResult.specie,
         name: queryResult.name,
         addedAt: queryResult.addedAt,
+        description: queryResult.description,
         sickness: queryResult.sickness.map(sickness => ({
           id: sickness.sickness.id,
           name: sickness.sickness.name

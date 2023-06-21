@@ -34,9 +34,10 @@ class ListAnimalsUserCase {
       prisma.animal.findMany({
         select: {
           id: true,
+          name: true,
           gender: true,
           specie: true,
-          name: true,
+          description: true,
           sickness: {
             select: {
               sickness: {
@@ -83,6 +84,7 @@ class ListAnimalsUserCase {
         specie: animal.specie,
         name: animal.name,
         addedAt: animal.addedAt,
+        description: animal.description,
         sickness: animal.sickness.map(sickness => ({
           id: sickness.sickness.id,
           name: sickness.sickness.name

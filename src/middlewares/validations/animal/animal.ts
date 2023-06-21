@@ -13,6 +13,7 @@ const createAnimalValidateSchema = yup.object({
     name: yup.string().min(5).max(55).required(),
     specie: yup.string().oneOf([AnimalSpecie.CAT, AnimalSpecie.DOG]).required(),
     gender: yup.string().oneOf([AnimalGender.MALE, AnimalGender.FEMALE]).required(),
+    description: yup.string().min(5).max(255).notRequired(),
     sickness: yup.array(yup.object({
       id: yup.string().length(36).required()
     })).notRequired()

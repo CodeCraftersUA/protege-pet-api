@@ -4,6 +4,7 @@ export default interface Animal {
   specie: AnimalSpecie,
   gender: AnimalGender,
   sickness: Sickness[],
+  description: string | null,
   owner?: string,
   addedAt: Date,
   account?: {

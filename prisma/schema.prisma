@@ -36,6 +36,7 @@ model Animal {
   specie              AnimalSpecie
   gender              AnimalGender
   sickness            AnimalsOnSickness[]
+  description         String?              @db.VarChar(255)
   active              Boolean              @default(true)
   owner               String               @map("owner_id") @db.VarChar(36)
   account             Account              @relation(fields: [owner], references: [id])
