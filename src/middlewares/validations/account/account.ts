@@ -23,7 +23,7 @@ const createAccountValidateSchema = yup.object({
     type: yup.string().oneOf([UserType.PROTECTOR, UserType.ADMIN]).required(),
     email: yup.string().email().required(),
     password: yupPasswordValidation,
-    cnpj: yup.string().length(14).notRequired()
+    cnpj: yup.string().min(11).max(14).required()
   })
 });
 
