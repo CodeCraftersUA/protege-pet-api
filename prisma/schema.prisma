@@ -49,6 +49,7 @@ model Sickness {
   name    String                   @unique @db.VarChar(55)
   species SicknessOnAnimalSpecie[]
   animals AnimalsOnSickness[]
+  active  Boolean                  @default(true)
 }
 
 model SicknessOnAnimalSpecie {

@@ -45,6 +45,11 @@ class CreateAccountUseCase {
                   name: true
                 }
               }
+            },
+            where: {
+              sickness: {
+                active: true
+              }
             }
           },
           owner: false,

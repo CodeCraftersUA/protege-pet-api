@@ -43,8 +43,13 @@ class ListAnimalsUserCase {
               sickness: {
                 select: {
                   id: true,
-                  name: true
-                }
+                  name: true,
+                },
+              },
+            },
+            where: {
+              sickness: {
+                active: true
               }
             }
           },
