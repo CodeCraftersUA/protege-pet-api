@@ -6,7 +6,7 @@ import CreateSicknessUseCase from "./CreateSicknessUseCase.js";
 
 const createSicknessUseCase = new CreateSicknessUseCase();
 
-class CreateAccountController {
+class CreateSicknessController {
   handler = async (req: Request, res: Response) => {
     const sicknessData = req.body;
 
@@ -18,4 +18,4 @@ class CreateAccountController {
   }
 }
 
-export default CreateAccountController;
+export default CreateSicknessController;

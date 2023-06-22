@@ -14,5 +14,12 @@ const createSicknessValidateScheme = yup.object({
   })
 });
 
+const updateSicknessValidateScheme = yup.object({
+  body: yup.object({
+    name: yup.string().min(3).max(55).notRequired(),
+  })
+});
+
 
 export const createSicknessValidate = validate(createSicknessValidateScheme);
+export const updateSicknessValidate = validate(updateSicknessValidateScheme);
