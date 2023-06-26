@@ -80,6 +80,28 @@ model AnimalsOnSickness {
   @@id([animalId, sicknessId])
 }
 
+model Complaint {
+  id              String           @id @db.VarChar(36)
+  name            String           @db.VarChar(55)
+  phone           String           @db.VarChar(15)
+  specie          AnimalSpecie
+  description     String           @db.VarChar(510)
+  address         ComplaintAddress @relation(fields: [adressId], references: [id])
+  adressId        String           @unique @map("adress_id") @db.VarChar(36)
+  complaintStatus ComplaintStatus  @default(REQUESTED)
+  addedAt         DateTime         @default(now())
+}
+
+model ComplaintAddress {
+  id         String     @id @db.VarChar(36)
+  street     String     @db.VarChar(55)
+  zipCode    String    @db.VarChar(10)
+  complement String?    @db.VarChar(55)
+  city       String     @db.VarChar(55)
+  state      String     @db.VarChar(55)
+  Complaint  Complaint?
+}
+
 model AnimalTransference {
   id          String                   @id @db.VarChar(36)
   animal      Animal                   @relation(fields: [animalId], references: [id])
@@ -92,6 +114,13 @@ model AnimalTransference {
   addedAt     DateTime                 @default(now())
 
   @@map("AnimalTransferences")
+}
+
+enum ComplaintStatus {
+  ANSWERED
+  CANCELED
+  REQUESTED
+  WAITING_APPROVAL
 }
 
 enum AnimalTransferenceStatus {

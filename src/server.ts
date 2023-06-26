@@ -8,6 +8,7 @@ import "express-async-errors";
 import adminRoutes from "./routes/adminRoutes.js";
 import accountRoutes from "./routes/accountRoutes.js";
 import animalRoutes from "./routes/animalRoutes.js";
+import complaintRoutes from "./routes/complaintRoutes.js";
 import transferenceRoutes from "./routes/transferenceRoutes.js";
 import sicknessRoutes from "./routes/sicknessRoutes.js";
 
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/account", accountRoutes);
 app.use("/admin", adminRoutes);
 app.use("/animals", animalRoutes);
+app.use("/complaints", complaintRoutes);
 app.use("/sickness", sicknessRoutes);
 app.use("/transferences", transferenceRoutes);
 
