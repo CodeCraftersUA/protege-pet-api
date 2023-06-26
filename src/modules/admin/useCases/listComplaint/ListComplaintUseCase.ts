@@ -15,8 +15,7 @@ class ListComplaintUseCase {
       prisma.complaint.count({
         where: {
           status: {
-            in: status,
-            not: "CANCELED"
+            in: status
           }
         }
       }),
@@ -28,6 +27,7 @@ class ListComplaintUseCase {
           phone: true,
           description: true,
           addedAt: true,
+          status: true,
           address: {
             select: {
               city: true,
@@ -40,8 +40,7 @@ class ListComplaintUseCase {
         },
         where: {
           status: {
-            in: status,
-            not: "CANCELED"
+            in: status
           }
         },
         skip: offset,
@@ -65,6 +64,7 @@ class ListComplaintUseCase {
         specie: complaint.specie,
         phone: complaint.phone,
         description: complaint.description,
+        status: complaint.status,
         addedAt: complaint.addedAt,
         address: {
           city: complaint.address.city,

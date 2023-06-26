@@ -1,52 +1,23 @@
 // Dependencies
-import { AnimalSpecie, PrismaClient } from '@prisma/client';
+import { AnimalSpecie, ComplaintStatus, PrismaClient } from '@prisma/client';
 
 // Errors
 import AppError from '../../../../errors/AppError.js';
 import { KEY_ALREADY_EXISTS } from '../../../../errors/prismaErrorsCodes.js';
 
-// Helpers
-import generateUniqueId from '../../../../helpers/generateUniqueId.js';
-
-
 interface params {
-  complaint: {
-    name: string,
-    specie: AnimalSpecie,
-    phone: string,
-    description: string,
-    address: {
-      street: string,
-      zipCode: string,
-      complement?: string,
-      city: string,
-      state: string
-    }
-  }
+  id: string,
+  status: ComplaintStatus
 }
 
 const prisma = new PrismaClient();
 
-class CreateComplaintUseCase {
-  execute = async ({ complaint }: params) => {
+class UpdateComplaintUseCase {
+  execute = async ({ id, status }: params) => {
     try {
-      const queryResult = await prisma.complaint.create({
+      const queryResult = await prisma.complaint.update({
         data: {
-          id: generateUniqueId(),
-          name: complaint.name,
-          specie: complaint.specie,
-          phone: complaint.phone,
-          description: complaint.description,
-          address: {
-            create: {
-              id: generateUniqueId(),
-              city: complaint.address.city,
-              state: complaint.address.state,
-              street: complaint.address.street,
-              zipCode: complaint.address.zipCode,
-              complement: complaint.address.complement
-            }
-          }
+          status,
         },
         select: {
           id: true,
@@ -54,6 +25,7 @@ class CreateComplaintUseCase {
           specie: true,
           phone: true,
           description: true,
+          status: true,
           addedAt: true,
           address: {
             select: {
@@ -64,6 +36,9 @@ class CreateComplaintUseCase {
               complement: true
             }
           }
+        },
+        where: {
+          id
         }
       });
 
@@ -73,6 +48,7 @@ class CreateComplaintUseCase {
         specie: queryResult.specie,
         phone: queryResult.phone,
         description: queryResult.description,
+        status: queryResult.status,
         addedAt: queryResult.addedAt,
         address: {
           city: queryResult.address.city,
@@ -92,4 +68,4 @@ class CreateComplaintUseCase {
   }
 }
 
-export default CreateComplaintUseCase;
+export default UpdateComplaintUseCase;
