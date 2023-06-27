@@ -2,15 +2,20 @@
 import express from "express";
 
 // Controllers
-import ListAccountsController from "../modules/admin/useCases/listAccounts/ListAccountsController.js";
-import UpdateAccountController from "../modules/admin/useCases/updateApprovedAccount/UpdateAccountController.js";
 import CreateSicknessController from "../modules/admin/useCases/createSickness/CreateSicknessController.js";
 import UpdateSicknessController from "../modules/admin/useCases/updateSickness/UpdateSicknessController.js";
 
 // Middlewares
+import ListAccountsController from "../modules/admin/useCases/listAccounts/ListAccountsController.js";
+import ListComplaintController from "../modules/admin/useCases/listComplaint/ListComplaintController.js";
+import UpdateAccountController from "../modules/admin/useCases/updateApprovedAccount/UpdateAccountController.js";
+import UpdateComplaintController from "../modules/admin/useCases/updateComplaint/UpdateComplaintController.js";
+
+// Middlewares
 import Authenticate from "../middlewares/authenticate.js";
-import { updateAccountValidate } from "../middlewares/validations/admin/account.js";
 import { createSicknessValidate, updateSicknessValidate } from "../middlewares/validations/admin/sickness.js";
+import { listComplaintValidate, updateComplaintValidate } from "../middlewares/validations/admin/complaints.js";
+import { updateAccountValidate } from "../middlewares/validations/admin/account.js";
 
 // Types
 import { UserType } from "../models/account.js";
@@ -23,6 +28,9 @@ const updateAccountController = new UpdateAccountController();
 const createSicknessController = new CreateSicknessController();
 const updateSicknessController = new UpdateSicknessController();
 
+const listComplaintController = new ListComplaintController();
+const updateComplaintController = new UpdateComplaintController();
+
 const authenticateAdmin = new Authenticate(UserType.ADMIN);
 
 app.get("/accounts", authenticateAdmin.execute, listAccountsController.handler);
@@ -30,5 +38,8 @@ app.patch("/accounts/:id", authenticateAdmin.execute, updateAccountValidate, upd
 
 app.post("/sickness", authenticateAdmin.execute, createSicknessValidate, createSicknessController.handler);
 app.patch("/sickness/:id", authenticateAdmin.execute, updateSicknessValidate, updateSicknessController.handler);
+
+app.get("/complaints", listComplaintValidate, authenticateAdmin.execute, listComplaintController.handler);
+app.patch("/complaints/:id", updateComplaintValidate, authenticateAdmin.execute, updateComplaintController.handler);
 
 export default app;
