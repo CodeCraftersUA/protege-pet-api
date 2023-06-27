@@ -28,9 +28,11 @@ class ListComplaintUseCase {
           description: true,
           addedAt: true,
           status: true,
+          situation: true,
           address: {
             select: {
               city: true,
+              district: true,
               state: true,
               street: true,
               zipCode: true,
@@ -66,8 +68,10 @@ class ListComplaintUseCase {
         description: complaint.description,
         status: complaint.status,
         addedAt: complaint.addedAt,
+        situation: complaint.situation,
         address: {
           city: complaint.address.city,
+          district: complaint.address.district,
           state: complaint.address.state,
           street: complaint.address.street,
           zipCode: complaint.address.zipCode,

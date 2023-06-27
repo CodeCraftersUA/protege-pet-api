@@ -89,7 +89,8 @@ model Complaint {
   description           String                  @db.VarChar(510)
   address               ComplaintAddress        @relation(fields: [adressId], references: [id])
   adressId              String                  @unique @map("adress_id") @db.VarChar(36)
-  status       ComplaintStatus         @default(WAITING_APPROVAL)
+  status                ComplaintStatus         @default(WAITING_APPROVAL)
+  situation             ComplaintSituation      @default(NORMAL)
   addedAt               DateTime                @default(now())
   protectorSawComplaint ProtectorSawComplaint[]
 }
@@ -97,11 +98,18 @@ model Complaint {
 model ComplaintAddress {
   id         String     @id @db.VarChar(36)
   street     String     @db.VarChar(55)
-  zipCode    String     @db.VarChar(10)
+  district   String     @db.VarChar(55)
+  zipCode    String?    @db.VarChar(55)
   complement String?    @db.VarChar(55)
   city       String     @db.VarChar(55)
   state      String     @db.VarChar(55)
   Complaint  Complaint?
+}
+
+enum ComplaintSituation {
+  NORMAL
+  URGENCY
+  EMERGENCY
 }
 
 model ProtectorSawComplaint {

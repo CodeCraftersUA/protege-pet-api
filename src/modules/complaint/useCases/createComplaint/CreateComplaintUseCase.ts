@@ -1,5 +1,5 @@
 // Dependencies
-import { AnimalSpecie, PrismaClient } from '@prisma/client';
+import { AnimalSpecie, ComplaintSituation, PrismaClient } from '@prisma/client';
 
 // Errors
 import AppError from '../../../../errors/AppError.js';
@@ -15,9 +15,11 @@ interface params {
     specie: AnimalSpecie,
     phone: string,
     description: string,
+    situation: ComplaintSituation,
     address: {
       street: string,
-      zipCode: string,
+      district: string,
+      zipCode?: string,
       complement?: string,
       city: string,
       state: string
@@ -37,12 +39,14 @@ class CreateComplaintUseCase {
           specie: complaint.specie,
           phone: complaint.phone,
           description: complaint.description,
+          situation: complaint.situation,
           address: {
             create: {
               id: generateUniqueId(),
               city: complaint.address.city,
               state: complaint.address.state,
               street: complaint.address.street,
+              district: complaint.address.district,
               zipCode: complaint.address.zipCode,
               complement: complaint.address.complement
             }
@@ -55,11 +59,13 @@ class CreateComplaintUseCase {
           phone: true,
           description: true,
           addedAt: true,
+          situation: true,
           address: {
             select: {
               city: true,
               state: true,
               street: true,
+              district: true,
               zipCode: true,
               complement: true
             }
@@ -74,8 +80,10 @@ class CreateComplaintUseCase {
         phone: queryResult.phone,
         description: queryResult.description,
         addedAt: queryResult.addedAt,
+        situation: queryResult.situation,
         address: {
           city: queryResult.address.city,
+          district: queryResult.address.district,
           state: queryResult.address.state,
           street: queryResult.address.street,
           zipCode: queryResult.address.zipCode,

@@ -27,8 +27,10 @@ class UpdateComplaintUseCase {
           description: true,
           status: true,
           addedAt: true,
+          situation: true,
           address: {
             select: {
+              district: true,
               city: true,
               state: true,
               street: true,
@@ -50,7 +52,9 @@ class UpdateComplaintUseCase {
         description: queryResult.description,
         status: queryResult.status,
         addedAt: queryResult.addedAt,
+        situation: queryResult.situation,
         address: {
+          district: queryResult.address.district,
           city: queryResult.address.city,
           state: queryResult.address.state,
           street: queryResult.address.street,

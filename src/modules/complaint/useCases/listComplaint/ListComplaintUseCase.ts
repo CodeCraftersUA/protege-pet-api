@@ -13,16 +13,6 @@ interface params {
   specie?: AnimalSpecie,
 }
 
-interface ReturnType {
-  options: {
-    total: number,
-    offset: number,
-    quatity: number,
-    length: number
-  },
-  data: Complaint[]
-}
-
 class ListComplaintUseCase {
   execute = async ({ quantity, offset, specie }: params) => {
     const queryResult = await prisma.$transaction([
@@ -42,13 +32,15 @@ class ListComplaintUseCase {
           phone: true,
           description: true,
           addedAt: true,
+          situation: true,
           address: {
             select: {
               city: true,
               state: true,
               street: true,
               zipCode: true,
-              complement: true
+              complement: true,
+              district: true
             }
           }
         },
@@ -80,12 +72,14 @@ class ListComplaintUseCase {
         phone: complaint.phone,
         description: complaint.description,
         addedAt: complaint.addedAt,
+        situation: complaint.situation,
         address: {
           city: complaint.address.city,
           state: complaint.address.state,
           street: complaint.address.street,
           zipCode: complaint.address.zipCode,
-          complement: complaint.address.complement
+          complement: complaint.address.complement,
+          district: complaint.address.district
         }
       }))
     }
