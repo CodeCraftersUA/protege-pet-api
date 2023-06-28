@@ -58,7 +58,7 @@ class ListComplaintUseCase {
         total: queryResult[0],
         length: queryResult[1].length,
         offset: offset,
-        quatity: quantity,
+        quantity: quantity,
       },
       data: queryResult[1].map(complaint => ({
         id: complaint.id,

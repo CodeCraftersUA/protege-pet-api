@@ -18,7 +18,7 @@ interface ReturnType {
   options: {
     total: number,
     offset: number,
-    quatity: number,
+    quantity: number,
     length: number
   },
   data: AnimalTransference[]
@@ -68,7 +68,7 @@ class ListTransferenceUseCase {
       options: {
         total: queryResult[0],
         offset: offset,
-        quatity: quantity,
+        quantity: quantity,
         length: queryResult[1].length
       },
       data: queryResult[1]

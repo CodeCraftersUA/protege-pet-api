@@ -16,7 +16,7 @@ interface ReturnType {
   options: {
     total: number,
     offset: number,
-    quatity: number,
+    quantity: number,
     length: number
   },
   data: Sickness[]
@@ -61,7 +61,7 @@ class ListSicknessUseCase {
         total: queryResult[0],
         length: queryResult[1].length,
         offset: offset,
-        quatity: quantity,
+        quantity: quantity,
       },
       data: queryResult[1].map(sickness => ({
         id: sickness.id,

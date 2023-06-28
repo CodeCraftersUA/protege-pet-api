@@ -1,19 +1,21 @@
 {
-    "compilerOptions": {
-      "module": "ESNext",
-      "esModuleInterop": true,
-      "target": "ESNext",
-      "moduleResolution": "Node",
-      "outDir": "dist",
-      "forceConsistentCasingInFileNames": true,
-      "noFallthroughCasesInSwitch": true,
-      "isolatedModules": false,
-      "strict": true,
-      "noImplicitAny": true,
-      "useUnknownInCatchVariables": false,
-      "inlineSourceMap": true
-    },
-    "ts-node": {
-        "esm": true
-    },
-  }
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "useUnknownInCatchVariables": false,
+    "inlineSourceMap": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+}
