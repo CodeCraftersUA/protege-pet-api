@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use routes
-app.use("/account", accountRoutes);
+app.use("/accounts", accountRoutes);
 app.use("/admin", adminRoutes);
 app.use("/animals", animalRoutes);
 app.use("/complaints", complaintRoutes);

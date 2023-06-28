@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 // Error
 import AppError from "../../../../errors/AppError.js";
+import { KEY_ALREADY_EXISTS, RECORD_DOES_NOT_EXIST } from "../../../../errors/prismaErrorsCodes.js";
 
 // Types
 import { Account, AccountByAdmin } from "../../../../models/account";
@@ -48,8 +49,11 @@ class UpdateApprovedAccountUseCase {
         type: queryResult.type
       };
     } catch (err) {
-      if (err?.code === "P2025")
+      if (err?.code === RECORD_DOES_NOT_EXIST)
         throw new AppError(`Could not find id ${id}`, 404);
+
+      if (err.code === KEY_ALREADY_EXISTS)
+        throw new AppError(`Attribute ${err.meta.target} already exists`, 409);
 
       throw err;
     }

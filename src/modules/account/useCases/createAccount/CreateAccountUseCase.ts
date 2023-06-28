@@ -20,18 +20,20 @@ const defaultApprovedByType = {
 }
 
 class CreateAccountUseCase {
-  execute = async (account: NewAccount) => {
+  execute = async (account: NewAccount): Promise<string> => {
     try {
-      await prisma.account.create({
+      const queryResult = await prisma.account.create({
         data: {
           ...account,
           approved: defaultApprovedByType[account.type],
           id: generateUniqueId(),
         }
       });
+
+      return queryResult.id;
     } catch (err) {
       if (err.code === KEY_ALREADY_EXISTS)
-        throw new AppError(`Attribute ${err.meta.target} already exists`, 400);
+        throw new AppError(`Attribute ${err.meta.target} already exists`, 409);
 
       throw err;
     }

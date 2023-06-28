@@ -15,12 +15,12 @@ class CreateAccountController {
     const userData = req.body;
 
     const encryptedPassword = await crypto.encrypt(userData.password);
-    await createAccountUseCase.execute({
+    const createdAccountId = await createAccountUseCase.execute({
       ...userData,
       password: encryptedPassword
     });
 
-    res.sendStatus(201);
+    res.status(201).json({ id: createdAccountId });
   }
 }
 

@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 // Errors
 import AppError from '../../../../errors/AppError.js';
-import { KEY_ALREADY_EXISTS } from '../../../../errors/prismaErrorsCodes.js';
+import { RECORD_DOES_NOT_EXIST } from '../../../../errors/prismaErrorsCodes.js';
 
 
 interface params {
@@ -15,16 +15,13 @@ const prisma = new PrismaClient();
 class DeleteAnimalUseCase {
   execute = async ({ id }: params): Promise<void> => {
     try {
-      await prisma.animal.update({
-        data: {
-          active: false
-        },
+      await prisma.account.delete({
         where: { id }
       });
     } catch (err) {
       console.error(err)
-      if (err.code === KEY_ALREADY_EXISTS)
-        throw new AppError(`Attribute ${err.meta.target} already exists`, 409);
+      if (err.code === RECORD_DOES_NOT_EXIST)
+        throw new AppError(`Account was not found`, 4040);
 
       throw err;
     }

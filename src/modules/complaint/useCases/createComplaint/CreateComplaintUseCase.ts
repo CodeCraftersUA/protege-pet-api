@@ -93,7 +93,7 @@ class CreateComplaintUseCase {
     } catch (err) {
       console.error(err)
       if (err.code === KEY_ALREADY_EXISTS)
-        throw new AppError(`Attribute ${err.meta.target} already exists`, 400);
+        throw new AppError(`Attribute ${err.meta.target} already exists`, 409);
 
       throw err;
     }

@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 import Animal from '../../../../models/animal.js';
 
 // Errors
-import { RECORD_TO_DELETE_DOES_NOT_EXIST } from '../../../../errors/prismaErrorsCodes.js';
+import { RECORD_DOES_NOT_EXIST } from '../../../../errors/prismaErrorsCodes.js';
 import AppError from '../../../../errors/AppError.js';
 
 
@@ -76,7 +76,7 @@ class ListAnimalsUserCase {
         }
       }
     } catch (err) {
-      if (err.code === RECORD_TO_DELETE_DOES_NOT_EXIST)
+      if (err.code === RECORD_DOES_NOT_EXIST)
         throw new AppError("Could not locate animal", 404);
 
       throw err;

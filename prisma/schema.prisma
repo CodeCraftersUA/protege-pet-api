@@ -40,7 +40,7 @@ model Animal {
   description         String?              @db.VarChar(255)
   active              Boolean              @default(true)
   owner               String               @map("owner_id") @db.VarChar(36)
-  account             Account              @relation(fields: [owner], references: [id])
+  account             Account              @relation(fields: [owner], references: [id], onDelete: Cascade)
   AnimalTransferences AnimalTransference[]
   addedAt             DateTime             @default(now())
 }
@@ -72,9 +72,9 @@ enum AnimalGender {
 }
 
 model AnimalsOnSickness {
-  animal     Animal   @relation(fields: [animalId], references: [id])
+  animal     Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   animalId   String   @map("animal_id")
-  sickness   Sickness @relation(fields: [sicknessId], references: [id])
+  sickness   Sickness @relation(fields: [sicknessId], references: [id], onDelete: Cascade)
   sicknessId String   @map("sickness_id")
   addedAt    DateTime @default(now())
 
@@ -123,7 +123,7 @@ model ProtectorSawComplaint {
 
 model AnimalTransference {
   id          String                   @id @db.VarChar(36)
-  animal      Animal                   @relation(fields: [animalId], references: [id])
+  animal      Animal                   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   animalId    String                   @map("animal_id")
   requester   Account                  @relation(name: "requester", fields: [requesterId], references: [id])
   requesterId String                   @map("requester_id") @db.VarChar(36)
