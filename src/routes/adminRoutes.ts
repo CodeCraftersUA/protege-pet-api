@@ -3,6 +3,7 @@ import express from "express";
 
 // Controllers
 import CreateSicknessController from "../modules/admin/useCases/createSickness/CreateSicknessController.js";
+import DeleteSicknessController from "../modules/admin/useCases/deleteSickness/DeleteSicknessController.js";
 import DeleteAccountController from "../modules/admin/useCases/deleteAccount/DeleteAccountController.js";
 import ListAccountsController from "../modules/admin/useCases/listAccounts/ListAccountsController.js";
 import ListComplaintController from "../modules/admin/useCases/listComplaint/ListComplaintController.js";
@@ -25,6 +26,7 @@ const listAccountsController = new ListAccountsController();
 const updateAccountController = new UpdateAccountController();
 
 const createSicknessController = new CreateSicknessController();
+const deleteSicknessController = new DeleteSicknessController();
 
 const listComplaintController = new ListComplaintController();
 const updateComplaintController = new UpdateComplaintController();
@@ -36,6 +38,7 @@ app.patch("/accounts/:id", authenticateAdmin.execute, updateAccountValidate, upd
 app.delete("/accounts/:id", authenticateAdmin.execute, deleteAccountController.handler);
 
 app.post("/sickness", authenticateAdmin.execute, createSicknessValidate, createSicknessController.handler);
+app.delete("/sickness/:id", authenticateAdmin.execute, deleteSicknessController.handler);
 
 app.get("/complaints", listComplaintValidate, authenticateAdmin.execute, listComplaintController.handler);
 app.patch("/complaints/:id", updateComplaintValidate, authenticateAdmin.execute, updateComplaintController.handler);
